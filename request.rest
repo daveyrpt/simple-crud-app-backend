@@ -1,4 +1,5 @@
 GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJEYXZleSIsImVtYWlsIjoiZGF2ZXkucnB0QGV4YW1wbGUuY29tIiwiaWF0IjoxNzEyNDc0NDUwLCJleHAiOjE3MTI0NzQ0ODB9.kjZalTPna33jnCGE_PCUqXHveznZnhTN7RG2-Y-kHhM
 
 ###
 POST http://localhost:3000/users
@@ -17,5 +18,12 @@ Content-Type: application/json
 
 {
     "email": "davey.rpt@example.com",
-    "password": "password",
+    "password": "password"
 }
+
+###
+GET http://localhost:3000/token
+
+###
+DELETE http://localhost:3000/logout
+
