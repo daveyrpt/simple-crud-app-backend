@@ -1,35 +1,28 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const Product = require("./models/product.model.js");
-const productRoute = require("./routes/product.route.js");
-const app = express();
+import express from "express";
+import db from "./config/Database.js";
+import Users from "./models/user.model.js";
+import router from "./routes/index.route.js";
+import dotenv from "dotenv"
 
-// middleware
+dotenv.config();
+
+const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+(async () => {
+	try {
+		await db.authenticate();
+		console.log("Database connection has been established successfully.");
 
+		await Users.sync();
+	} catch (error) {
+		console.log(error);
+	}
+})();
 
-// routes
-app.use("/api/products", productRoute);
+app.use(router);
 
+app.listen(3000, () => {
+	console.log("Server started on port 3000");
+})
 
-
-
-app.get("/", (req, res) => {
-  res.send("Hello from Node API Server Updated");
-});
-
-
-mongoose
-  .connect(
-    "mongodb+srv://haris2iftikhar:GClTzr15XhkjvN6k@backenddb.nrurtot.mongodb.net/Node-API?retryWrites=true&w=majority"
-  )
-  .then(() => {
-    console.log("Connected to database!");
-    app.listen(3000, () => {
-      console.log("Server is running on port 3000");
-    });
-  })
-  .catch(() => {
-    console.log("Connection failed!");
-  });
